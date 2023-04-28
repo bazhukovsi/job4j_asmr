@@ -6,20 +6,7 @@ public class PositiveOrNegative {
         int negative = 0;
         int positive = 0;
         for (int i = 0; i < data.length; i++) {
-            if (data[i] < 0) {
-                negative++;
-            }
-        }
-        if (negative / 2 != 0) {
-            out = true;
-        }
-        for (int i = 0; i < data.length; i++) {
-            if (data[i] < 0) {
-                positive++;
-            }
-        }
-        if (positive / 2 != 0) {
-            out = false;
+
         }
         return out;
     }
