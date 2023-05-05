@@ -1,6 +1,9 @@
 package asmr.ru.stream;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OptionalStream {
     public static class PhoneNumber {
@@ -31,8 +34,10 @@ public class OptionalStream {
     }
 
     public static List<PhoneNumber> collectNumber(List<User> users, int id, String region) {
-
-        return List.of(new PhoneNumber("123"));
+        List<User> list = users.stream()
+                .filter(u -> u.getId() == id)
+                .filter(u -> u.getNumbers().contains(region)).toList();
+        return list.stream().map(user -> new ArrayList<>(user.getNumbers())).flatMap(Collection::stream).collect(Collectors.toList());
     }
 
     public static void main(String[] args) {
@@ -46,5 +51,6 @@ public class OptionalStream {
         User u2 = new User(2, List.of(ph2));
         User u3 = new User(3, List.of(ph3, ph4, ph5));
         User u4 = new User(3, List.of(ph6));
+        List<PhoneNumber> out = collectNumber(List.of(u1, u2, u3, u4), 3, "+7");
     }
 }
